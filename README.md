@@ -10,15 +10,14 @@
 
 > ⚠️ **Beta Phase**
 
-TiniMind is currently under active development. The architecture, APIs, training pipeline, and project structure may change as development progresses. Some features are still experimental and may not function as expected.
-
+TiniMind is currently under active development. The architecture, APIs, training pipeline, and project structure may change as development progresses.
 ---
 
 # Why TiniMind?
 
 TiniMind is an experimental Small Language Model (SLM) focused on Indonesian.
 
-The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language model architectures while remaining easy to understand, modify, and extend.
+The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language modelarchitectures while remaining easy to understand, modify, and extend.
 
 Rather than relying heavily on existing frameworks, TiniMind is implemented from scratch to provide a deeper understanding of how modern decoder-only language models work internally.
 
