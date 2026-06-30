@@ -35,24 +35,24 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
 - ✅ SwiGLU Feed Forward Network
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ⚠️ Experimental Quantization *(currently under development)*
+- ✅ Implemented Quantization *(currently under development)*
 - ✅ Modular project structure for experimentation
 
 ---
 
 # Current Status
 
-| Component | Status |
-|-----------|:------:|
-| Indonesian Tokenizer | ✅ Stable |
-| Decoder-only Transformer | ✅ Stable |
-| Configuration System | ✅ Stable |
-| Training Notebook | ✅ Working |
-| Documentation | 🚧 Improving |
-| Quantization | ⚠️ Experimental |
-| Evaluation Benchmark | 🚧 Planned |
-| Pretrained Model | 🚧 Planned |
-| Stable Release | 🚧 In Progress |
+|        Component         |    Status    |
+|--------------------------|--------------|
+| Indonesian Tokenizer     |  Stable      |
+| Decoder-only Transformer |  Stable      |
+| Configuration System     |  Stable      |
+| Training Notebook        |  Working     |
+| Documentation            |  Improving   |
+| Quantization             |  Improving   |
+| Evaluation Benchmark     |  Planned     |
+| Pretrained Model         |  Planned     |
+| Stable Release           |  In Progress |
 
 ---
 
@@ -75,15 +75,15 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Repository Structure
 
-| File | Description |
-|------|-------------|
-| `model_v2.py` | Main Transformer architecture implementation |
-| `config.py` | Model configuration and hyperparameters |
-| `quantize.py` | Experimental quantization utilities |
-| `train_tokenizer_indo.py` | Indonesian tokenizer training script |
+|           File            |                   Description                      |
+|---------------------------|----------------------------------------------------|
+| `model_v2.py`             | Main Transformer architecture implementation       |
+| `config.py`               | Model configuration and hyperparameters            |
+| `quantize.py`             | Experimental quantization utilities                |
+| `train_tokenizer_indo.py` | Indonesian tokenizer training script               |
 | `TiniMind_Training.ipynb` | Notebook for tokenizer training and model training |
-| `requirements.txt` | Python dependencies |
-| `LICENSE` | MIT License |
+| `requirements.txt`        | Python dependencies                                |
+| `LICENSE`                 | MIT License                                        |
 
 ---
 
@@ -175,5 +175,5 @@ This repository represents not only a software project, but also my learning jou
 
 If you find this project useful, interesting, or learned something from it, consider giving it a ⭐. It genuinely motivates me to keep improving TiniMind.
 
-Thanks for stopping by, and happy coding! ❤️
+Thanks for stopping by
 ````
