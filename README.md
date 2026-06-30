@@ -35,7 +35,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
 - ✅ SwiGLU Feed Forward Network
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ✅ Implemented Quantization *(currently under development)*
+- ✅ Implemented Quantization
 - ✅ Modular project structure for experimentation
 
 ---
@@ -64,7 +64,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [x] Grouped Query Attention
 - [x] RMSNorm
 - [x] Stable Quantization
-- [ ] Complete Training Pipeline
+- [x] Complete Training Pipeline
 - [ ] Evaluation Benchmark
 - [ ] Hugging Face Integration
 - [ ] Pretrained Model Release
