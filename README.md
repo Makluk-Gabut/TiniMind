@@ -1,4 +1,4 @@
-````md
+
 # TiniMind
 
 > A lightweight decoder-only Transformer built from scratch in PyTorch.
@@ -10,9 +10,9 @@ TiniMind is currently under active development. The architecture, APIs, training
 
 # Why TiniMind?
 
-TiniMind is an experimental Small Language Model (SLM) focused on Indonesian.
+TiniMind is an experimental Small Language Model (SLM) primarily focused on Indonesian.
 
-The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language modelarchitectures while remaining easy to understand, modify, and extend.
+The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language model architectures while remaining easy to understand, modify, and extend.
 
 Rather than relying heavily on existing frameworks, TiniMind is implemented from scratch to provide a deeper understanding of how modern decoder-only language models work internally.
 
@@ -29,7 +29,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
 - ✅ SwiGLU Feed Forward Network
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ✅ Implemented Quantization
+- ✅ Implemented Quantization `will improve as tiime goes on`
 - ✅ Modular project structure for experimentation
 
 ---
@@ -167,7 +167,6 @@ TiniMind is still in its Beta phase, so expect rough edges, unfinished features,
 
 This repository represents not only a software project, but also my learning journey into AI and language model development.
 
-If you find this project useful, interesting, or learned something from it, consider giving it a ⭐. It genuinely motivates me to keep improving TiniMind.
+If you find this project useful, interesting, or learned something from it, consider giving it a ⭐.
 
 Thanks for stopping by
-````
