@@ -28,15 +28,15 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Features
 
-- ✅ Decoder-only Transformer built entirely in PyTorch
-- ✅ Grouped Query Attention (GQA)
-- ✅ Rotary Positional Embeddings (RoPE)
-- ✅ RMSNorm
-- ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
-- ✅ SwiGLU Feed Forward Network
-- ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ⚠️ Experimental Quantization *(currently under development)*
-- ✅ Modular project structure for experimentation
+- Decoder-only Transformer built entirely in PyTorch
+- Grouped Query Attention (GQA)
+- Rotary Positional Embeddings (RoPE)
+- RMSNorm
+- Flash Attention using PyTorch `scaled_dot_product_attention`
+- SwiGLU Feed Forward Network
+- Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
+- Experimental Quantization *(currently under development)*
+- Modular project structure for experimentation
 
 ---
 
