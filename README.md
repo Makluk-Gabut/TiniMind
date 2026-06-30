@@ -132,13 +132,13 @@ Run every cell sequentially.
 - PyTorch 2.x
 - CUDA-compatible GPU (recommended)
 - SentencePiece
-- bitsandbytes *(only required for experimental quantization)*
+- bitsandbytes
 
 ---
 
 # Philosophy
 
-TiniMind is **not** intended to compete with large commercial language models.
+TiniMind is not intended to compete with large commercial language models.
 
 Instead, this project exists as a personal research and learning project focused on understanding how modern Transformer architectures actually work.
 
