@@ -14,7 +14,7 @@ TiniMind is an experimental Small Language Model (SLM) primarily focused on Indo
 
 The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language model architectures while remaining easy to understand, modify, and extend.
 
-Rather than relying heavily on existing frameworks, TiniMind is implemented from scratch to provide a deeper understanding of how modern decoder-only language models work internally.
+Rather than relying heavily on existing frameworks, TiniMind is implemented **from scratch** to provide a deeper understanding of how modern decoder-only language models work internally.
 
 A custom Indonesian BPE tokenizer is included to improve tokenization efficiency for Indonesian text compared to general-purpose tokenizers.
 
