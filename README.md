@@ -42,8 +42,8 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | Decoder-only Transformer |  Stable      |
 | Configuration System     |  Stable      |
 | Training Notebook        |  Working     |
-| Documentation            |  Improving   |
-| Quantization             |  Improving   |
+| Documentation            |  Stable      |
+| Quantization             |  Stable      |
 | Evaluation Benchmark     |  Planned     |
 | Pretrained Model         |  Planned     |
 | Stable Release           |  In Progress |
@@ -73,7 +73,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 |---------------------------|----------------------------------------------------|
 | `model_v2.py`             | Main Transformer architecture implementation       |
 | `config.py`               | Model configuration and hyperparameters            |
-| `quantize.py`             | Experimental quantization utilities                |
+| `quantize.py`             | Model quantization utilities                       |
 | `train_tokenizer_indo.py` | Indonesian tokenizer training script               |
 | `TiniMind_Training.ipynb` | Notebook for tokenizer training and model training |
 | `requirements.txt`        | Python dependencies                                |
@@ -169,4 +169,10 @@ This repository represents not only a software project, but also my learning jou
 
 If you find this project useful, interesting, or learned something from it, consider giving it a ⭐.
 
-Thanks for stopping by
+Another project that helped shape TiniMind is Gabut Playground.
+
+It's my personal sandbox where I experiment with ideas, prototypes, and random AI-related projects before deciding whether they're worth integrating into TiniMind. Many experiments that eventually became part of this repository started there.
+
+If you're curious about what happens behind the scenes, feel free to check it out.
+
+Gabut Playground: https://github.com/Makluk-Gabut/Gabut-Playground
