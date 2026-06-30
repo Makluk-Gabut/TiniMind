@@ -42,7 +42,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | Decoder-only Transformer |  Stable      |
 | Configuration System     |  Stable      |
 | Training Notebook        |  Working     |
-| Documentation            |  Stable      |
+| Documentation            |  Complete    |
 | Quantization             |  Stable      |
 | Evaluation Benchmark     |  Planned     |
 | Pretrained Model         |  Planned     |
