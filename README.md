@@ -3,7 +3,7 @@
 
 > A lightweight decoder-only Transformer built from scratch in PyTorch.
 
-> ⚠️ **Beta Phase**
+⚠️ **Beta Phase**
 
 TiniMind is currently under active development. The architecture, APIs, training pipeline, and project structure may change as development progresses.
 ---
