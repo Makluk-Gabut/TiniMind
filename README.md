@@ -58,7 +58,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [x] Grouped Query Attention
 - [x] RMSNorm
 - [x] Stable Quantization
-- [ ] Complete Training Pipeline
+- [x] Complete Training Pipeline
 - [ ] Evaluation Benchmark
 - [ ] Hugging Face Integration
 - [ ] Pretrained Model Release
