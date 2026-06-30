@@ -42,17 +42,17 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Current Status
 
-| Component | Status |
-|-----------|:------:|
-| Indonesian Tokenizer | ✅ Stable |
-| Decoder-only Transformer | ✅ Stable |
-| Configuration System | ✅ Stable |
-| Training Notebook | ✅ Working |
-| Documentation | 🚧 Improving |
-| Quantization | ⚠️ Experimental |
-| Evaluation Benchmark | 🚧 Planned |
-| Pretrained Model | 🚧 Planned |
-| Stable Release | 🚧 In Progress |
+|         Component        |      Status      |
+|--------------------------|------------------|
+| Indonesian Tokenizer     |  Stable          |
+| Decoder-only Transformer |  Stable          |
+| Configuration System     |  Stable          |
+| Training Notebook        |  Working         |
+| Documentation            |  Improving       |
+| Quantization             |  Experimental    |
+| Evaluation Benchmark     |  Planned         |
+| Pretrained Model         |  Planned         |
+| Stable Release           |  In Progress     |
 
 ---
 
@@ -75,15 +75,15 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Repository Structure
 
-| File | Description |
-|------|-------------|
-| `model_v2.py` | Main Transformer architecture implementation |
-| `config.py` | Model configuration and hyperparameters |
-| `quantize.py` | Experimental quantization utilities |
-| `train_tokenizer_indo.py` | Indonesian tokenizer training script |
+|           File            |                   Description                      |
+|---------------------------|----------------------------------------------------|
+| `model_v2.py`             | Main Transformer architecture implementation       |
+| `config.py`               | Model configuration and hyperparameters            |
+| `quantize.py`             | Experimental quantization utilities                |
+| `train_tokenizer_indo.py` | Indonesian tokenizer training script               |
 | `TiniMind_Training.ipynb` | Notebook for tokenizer training and model training |
-| `requirements.txt` | Python dependencies |
-| `LICENSE` | MIT License |
+| `requirements.txt`        | Python dependencies                                |
+| `LICENSE`                 | MIT License                                        |
 
 ---
 
@@ -157,7 +157,7 @@ See the [LICENSE](LICENSE) file for more information.
 
 ---
 
-# Dev's Note
+## Dev's Note
 
 If you've made it this far, thank you for taking the time to explore TiniMind.
 
@@ -167,13 +167,16 @@ I'm building this project entirely on my own while still attending school. Most 
 
 There were countless bugs, failed experiments, broken training runs, and moments where I seriously questioned whether things would ever work. Looking back, every mistake ended up teaching me something valuable.
 
-Fun fact: I accidentally burned my finger on my PC fan while writing this README. Somehow documenting the project turned out to be harder than building the model itself. 😭
+Fun fact: I accidentally burned my finger on my PC fan while writing this README. Somehow, documenting the project turned out to be harder than building the model itself.
 
 TiniMind is still in its Beta phase, so expect rough edges, unfinished features, and things that will continue to evolve over time.
 
 This repository represents not only a software project, but also my learning journey into AI and language model development.
 
-If you find this project useful, interesting, or learned something from it, consider giving it a ⭐. It genuinely motivates me to keep improving TiniMind.
+If you find this project useful, interesting, or learned something from it, consider giving it a ⭐.
 
-Thanks for stopping by, and happy coding! ❤️
+If you'd like to explore more of my experiments and side projects, consider checking out **Gabut-Playground**:
+https://github.com/Makluk-Gabut/Gabut-Playground
+
+Thanks for stopping by.
 ````
