@@ -153,8 +153,46 @@ class TestConfig:
 
 
 # ─────────────────────────────────────────────────────────────────
-#  PRODUCTION CONFIG — ~500M params
-#  Target hardware: T4 (16GB VRAM)
+#  PROD 300M CONFIG — ~303M params  ← INI YANG AKTUAL DIPAKAI
+#  Architecture: 24L x 1024H, 16Q/4KV, vocab=32000
+#  Ini adalah config persis yang jalan di TiniMind_Training.ipynb
+#  VRAM T4 (16GB): ~10-12GB dengan fp16 + grad_accum=8, batch=4 ✓
+# ─────────────────────────────────────────────────────────────────
+
+@dataclass
+class Prod300MConfig:
+    """Config utama TiniMind ~303M params — cocok untuk T4 16GB.
+
+    Ini adalah config yang AKTUAL dipakai di training notebook.
+    batch=4, grad_accum=8, seq_len=1024 → ~32K token/step efektif.
+    """
+    model: ModelConfig = field(default_factory=lambda: ModelConfig(
+        num_layers=24,
+        hidden_size=1024,
+        num_heads=16,
+        num_kv_heads=4,
+        vocab_size=32000,    # Indo BPE tokenizer
+        max_seq_len=2048,
+        block_size=2048,
+        dropout=0.0,
+    ))
+    learning_rate: float = 3e-4
+    batch_size: int = 4
+    steps_per_epoch: int = 2000
+    num_epochs: int = 10
+    gradient_accumulation_steps: int = 8
+    max_grad_norm: float = 1.0
+    warmup_steps: int = 200
+    use_streaming: bool = True
+    num_workers: int = 2
+    log_every: int = 100
+    eval_every: int = 1000
+    save_every: int = 1000
+
+
+# ─────────────────────────────────────────────────────────────────
+#  PRODUCTION CONFIG — ~612M params  (TIDAK MUAT DI T4!)
+#  Butuh A100 40GB+. Dibiarkan untuk referensi saja.
 #  Estimasi training:
 #    - 1B token × bf16 × grad_accum=8 → ~6-10 jam per 1B token
 #    - Mulai dari 1B token untuk proof of concept
@@ -257,12 +295,13 @@ class MediumConfig:
 TiniConfig = ModelConfig
 
 
-def get_config(name: str) -> Union[TestConfig, MediumConfig, ProductionConfig]:
+def get_config(name: str) -> Union[TestConfig, MediumConfig, Prod300MConfig, ProductionConfig]:
     """Load config by name."""
     configs = {
-        "test_60m":   TestConfig(),
+        "test_60m":    TestConfig(),
         "medium_130m": MediumConfig(),
-        "prod_500m":  ProductionConfig(),
+        "prod_300m":   Prod300MConfig(),   # ← config aktual training di T4
+        "prod_500m":   ProductionConfig(), # butuh A100+, tidak muat T4
     }
 
     if name not in configs:
