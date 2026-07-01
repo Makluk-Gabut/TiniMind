@@ -81,16 +81,16 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Repository Structure
 
-| File | Description |
-|------|-------------|
-| `model_v2.py` | Main Transformer architecture implementation |
-| `config.py` | Model configuration and hyperparameters |
-| `train.py` | Standalone training script with checkpoint resume support |
-| `quantize.py` | Quantization utilities |
-| `train_tokenizer_indo.py` | Indonesian tokenizer training script |
-| `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials |
-| `requirements.txt` | Python dependencies |
-| `LICENSE` | MIT License |
+|           File            |                        Description                        |
+|---------------------------|-----------------------------------------------------------|
+| `model_v2.py`             | Main Transformer architecture implementation              |
+| `config.py`               | Model configuration and hyperparameters                   |
+| `train.py`                | Standalone training script with checkpoint resume support |
+| `quantize.py`             | Quantization utilities                                    |
+| `train_tokenizer_indo.py` | Indonesian tokenizer training script                      |
+| `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials    |
+| `requirements.txt`        | Python dependencies                                       |
+| `LICENSE`                 | MIT License                                               |
 
 ---
 
