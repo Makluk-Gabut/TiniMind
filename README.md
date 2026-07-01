@@ -8,18 +8,18 @@
 
 > A lightweight decoder-only Transformer built from scratch in PyTorch.
 
-⚠️ **Beta Phase**
+# ⚠️ **Beta Phase**
 
 TiniMind is currently under active development. The architecture, APIs, training pipeline, and project structure may change as development progresses.
 ---
 
 # Why TiniMind?
 
-TiniMind is an experimental Small Language Model (SLM) primarily focused on Indonesian.
+TiniMind is an experimental Small Language Model (SLM) focused on Indonesian.
 
 The primary goal of this project is to build a lightweight, educational, and efficient Transformer implementation that demonstrates modern language model architectures while remaining easy to understand, modify, and extend.
 
-Rather than relying heavily on existing frameworks, TiniMind is implemented **from scratch** to provide a deeper understanding of how modern decoder-only language models work internally.
+Rather than relying heavily on existing frameworks, TiniMind is implemented from scratch to provide a deeper understanding of how modern decoder-only language models work internally.
 
 A custom Indonesian BPE tokenizer is included to improve tokenization efficiency for Indonesian text compared to general-purpose tokenizers.
 
@@ -34,7 +34,11 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
 - ✅ SwiGLU Feed Forward Network
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ✅ Implemented Quantization `will improve as tiime goes on`
+- ✅ Stable Quantization
+- ✅ Standalone Training Script
+- ✅ Resume Training from Checkpoints
+- ✅ Mixed Precision Training (BF16 / FP16 / FP32)
+- ✅ Cosine Learning Rate Scheduler with Warmup
 - ✅ Modular project structure for experimentation
 
 ---
@@ -43,15 +47,16 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 |        Component         |    Status    |
 |--------------------------|--------------|
-| Indonesian Tokenizer     |  Stable      |
-| Decoder-only Transformer |  Stable      |
-| Configuration System     |  Stable      |
-| Training Notebook        |  Working     |
-| Documentation            |  Complete    |
-| Quantization             |  Stable      |
-| Evaluation Benchmark     |  Planned     |
-| Pretrained Model         |  Planned     |
-| Stable Release           |  In Progress |
+| Indonesian Tokenizer     | Stable       |
+| Decoder-only Transformer | Stable       |
+| Configuration System     | Stable       |
+| Training Script          | Stable       |
+| Training Notebook        | Working      |
+| Documentation            | Stable       |
+| Quantization             | Stable       |
+| Evaluation Benchmark     | Planned      |
+| Pretrained Model         | Planned      |
+| Stable Release           | In Progress  |
 
 ---
 
@@ -64,6 +69,8 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [x] RMSNorm
 - [x] Stable Quantization
 - [x] Complete Training Pipeline
+- [x] Standalone Training Script
+- [x] Resume Training
 - [ ] Evaluation Benchmark
 - [ ] Hugging Face Integration
 - [ ] Pretrained Model Release
@@ -74,15 +81,16 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 
 # Repository Structure
 
-|           File            |                   Description                      |
-|---------------------------|----------------------------------------------------|
-| `model_v2.py`             | Main Transformer architecture implementation       |
-| `config.py`               | Model configuration and hyperparameters            |
-| `quantize.py`             | Model quantization utilities                       |
-| `train_tokenizer_indo.py` | Indonesian tokenizer training script               |
-| `TiniMind_Training.ipynb` | Notebook for tokenizer training and model training |
-| `requirements.txt`        | Python dependencies                                |
-| `LICENSE`                 | MIT License                                        |
+| File | Description |
+|------|-------------|
+| `model_v2.py` | Main Transformer architecture implementation |
+| `config.py` | Model configuration and hyperparameters |
+| `train.py` | Standalone training script with checkpoint resume support |
+| `quantize.py` | Quantization utilities |
+| `train_tokenizer_indo.py` | Indonesian tokenizer training script |
+| `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials |
+| `requirements.txt` | Python dependencies |
+| `LICENSE` | MIT License |
 
 ---
 
@@ -116,13 +124,30 @@ config.py
 
 ### 3. Start training
 
-Open the notebook:
+Run the standalone training script:
+
+```bash
+python train.py \
+    --config prod_500m \
+    --data-dir ./data \
+    --output-dir ./output/checkpoints
+```
+
+Resume training from a checkpoint:
+
+```bash
+python train.py \
+    --config prod_500m \
+    --data-dir ./data \
+    --output-dir ./output/checkpoints \
+    --resume ./output/checkpoints/step_xxxxxxx_loss_x.xxx.pt
+```
+
+For interactive experimentation and development, you can still use:
 
 ```
 TiniMind_Training.ipynb
 ```
-
-Run every cell sequentially.
 
 ---
 
@@ -165,6 +190,8 @@ This project has been my personal playground for learning and experimenting with
 I'm building this project entirely on my own while still attending school. Most of the development happened after classes, during weekends, or whenever I had free time.
 
 There were countless bugs, failed experiments, broken training runs, and moments where I seriously questioned whether things would ever work. Looking back, every mistake ended up teaching me something valuable.
+
+Over time, TiniMind has evolved from an experimental notebook into a standalone training pipeline capable of running on local machines and cloud environments while keeping the codebase educational and easy to understand.
 
 Fun fact: I accidentally burned my finger on my PC fan while writing this README. Somehow documenting the project turned out to be harder than building the model itself. 😭
 
