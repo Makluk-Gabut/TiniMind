@@ -46,7 +46,7 @@ from model_v2 import TiniMind                        # noqa: E402
 def parse_args():
     p = argparse.ArgumentParser(description="Train TiniMind from scratch")
     p.add_argument("--config", default="prod_300m",
-                    choices=["test_60m", "medium_130m", "prod_300m", "prod_500m"],
+                    choices=["tiny_130m", "prod_300m", "prod_500m", "prod_1b"],
                     help="Preset config dari config.py (lihat CATATAN di config.py: "
                          "ini titik awal, bukan otoritas mutlak)")
     p.add_argument("--data-dir", required=True, help="Folder berisi chunk_*.bin")
