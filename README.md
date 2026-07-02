@@ -124,13 +124,40 @@ config.py
 
 ### 3. Start training
 
-Run the standalone training script:
+Choose a config based on your hardware:
+
+|    Config    | Params |    Hardware    |
+|--------------|--------|----------------|
+| `tiny_130m`  | ~125M  | T4 / any GPU   |
+| `prod_300m`  | ~303M  | T4 16GB        |
+| `prod_500m`  | ~490M  | A100 40GB+     |
+| `prod_1b`    | ~1.01B | A100 80GB+     |
 
 ```bash
 python train.py \
-    --config prod_500m \
+    --config prod_300m \
     --data-dir ./data \
-    --output-dir ./output/checkpoints
+    --output-dir ./output/pretrain \
+    --dtype fp16
+```
+
+Resume training from a checkpoint:
+
+```bash
+python train.py \
+    --config prod_300m \
+    --data-dir ./data \
+    --output-dir ./output/pretrain \
+    --dtype fp16 \
+    --resume ./output/pretrain/step_xxxxxxx_loss_x.xxxx.pt
+```
+
+> **Note:** Use `--dtype fp16` for T4/V100. Use `--dtype bf16` for A100/H100.
+
+For interactive experimentation, use:
+
+```
+TiniMind_Training_v3.ipynb
 ```
 
 Resume training from a checkpoint:
