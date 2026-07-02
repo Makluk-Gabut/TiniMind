@@ -157,7 +157,7 @@ python train.py \
 For interactive experimentation, use:
 
 ```
-TiniMind_Training_v3.ipynb
+TiniMind_Training.ipynb
 ```
 
 Resume training from a checkpoint:
