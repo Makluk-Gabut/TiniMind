@@ -158,7 +158,7 @@ def save_checkpoint(model, optimizer, scheduler_step, cfg, output_dir, step, los
 
 def load_checkpoint_for_resume(path, model, optimizer, device):
     print(f"Resuming dari: {path}")
-    ckpt = torch.load(path, map_location=device)
+    ckpt = torch.load(path, map_location=device, weights_only=False)
     model.load_state_dict(ckpt["model"])
     if "optimizer" in ckpt:
         optimizer.load_state_dict(ckpt["optimizer"])

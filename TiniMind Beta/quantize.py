@@ -34,15 +34,15 @@ Yang DI-quantize:
     dan SwiGLUFFN (gate, up, down) — ini >90% dari total parameter.
 
 Cara pakai:
-    python quantize.py \
-        --checkpoint /path/to/step_0010000_loss_2.5.pt \
-        --output /path/to/tinimind_int8.pt \
+    python quantize.py \\
+        --checkpoint /path/to/step_0010000_loss_2.5.pt \\
+        --output /path/to/tinimind_int8.pt \\
         --mode dynamic
 
-    python quantize.py \
-        --checkpoint /path/to/step_0010000_loss_2.5.pt \
-        --output /path/to/tinimind_int8.pt \
-        --mode bnb8bit \
+    python quantize.py \\
+        --checkpoint /path/to/step_0010000_loss_2.5.pt \\
+        --output /path/to/tinimind_int8.pt \\
+        --mode bnb8bit \\
         --device cuda
 """
 
@@ -75,7 +75,7 @@ def load_checkpoint(checkpoint_path: str) -> dict:
     langsung tanpa wrapper dict — keduanya ditangani di sini.
     """
     log.info(f"Loading checkpoint: {checkpoint_path}")
-    ckpt = torch.load(checkpoint_path, map_location="cpu")
+    ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
     if isinstance(ckpt, dict) and "model" in ckpt:
         state_dict = ckpt["model"]
