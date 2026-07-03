@@ -31,6 +31,7 @@ import random
 import sys
 import time
 
+import json
 import numpy as np
 import torch
 from torch.amp import GradScaler, autocast
@@ -143,27 +144,71 @@ def evaluate(model, get_batch, val_files, dtype, device, num_batches: int = 10):
 
 # ─── Checkpoint ──────────────────────────────────────────────────────────────
 
-def save_checkpoint(model, optimizer, scheduler_step, cfg, output_dir, step, loss):
+def save_checkpoint(model, optimizer, cfg, output_dir, step, val_loss):
     os.makedirs(output_dir, exist_ok=True)
-    path = os.path.join(output_dir, f"step_{step:07d}_loss_{loss:.4f}.pt")
+    path = os.path.join(output_dir, f"step_{step:07d}_loss_{val_loss:.4f}.pt")
     torch.save({
-        "model": model.state_dict(),
+        "model":     model.state_dict(),
         "optimizer": optimizer.state_dict(),
-        "step": step,
-        "config": cfg,
+        "step":      step,
+        "config":    cfg,
     }, path)
-    print(f"  >> Checkpoint saved: {path}")
+    print(f"  >> Checkpoint: {os.path.basename(path)}")
     return path
+
+
+def log_loss(output_dir: str, step: int, train_loss: float, val_loss: float = None):
+    """Append loss ke loss_log.json — bisa diplot dari notebook kapanpun."""
+    log_path = os.path.join(output_dir, "loss_log.json")
+    entry = {"step": step, "train": round(train_loss, 6)}
+    if val_loss is not None:
+        entry["val"] = round(val_loss, 6)
+    logs = []
+    if os.path.exists(log_path):
+        try:
+            with open(log_path) as f:
+                logs = json.load(f)
+        except Exception:
+            logs = []
+    logs.append(entry)
+    with open(log_path, "w") as f:
+        json.dump(logs, f)
 
 
 def load_checkpoint_for_resume(path, model, optimizer, device):
     print(f"Resuming dari: {path}")
     ckpt = torch.load(path, map_location=device, weights_only=False)
-    model.load_state_dict(ckpt["model"])
-    if "optimizer" in ckpt:
-        optimizer.load_state_dict(ckpt["optimizer"])
-    start_step = ckpt.get("step", 0)
-    print(f"Resume dari step {start_step}")
+
+    # Handle berbagai format checkpoint:
+    # - {'model': state_dict, 'optimizer': ..., 'step': ...}  ← format train.py baru
+    # - {'state_dict': state_dict, ...}                        ← format notebook lama
+    # - state_dict langsung (semua value adalah Tensor)        ← format paling lama
+    if isinstance(ckpt, dict):
+        state_dict = (ckpt.get("model")
+                      or ckpt.get("state_dict")
+                      or ckpt.get("model_state_dict"))
+        if state_dict is None:
+            # Cek apakah ckpt sendiri adalah state_dict
+            if all(isinstance(v, torch.Tensor) for v in ckpt.values()):
+                state_dict = ckpt
+            else:
+                raise KeyError(
+                    f"Tidak bisa menemukan state dict di checkpoint.\n"
+                    f"Keys yang ada: {list(ckpt.keys())}"
+                )
+    else:
+        state_dict = ckpt  # langsung Tensor dict
+
+    model.load_state_dict(state_dict, strict=False)
+
+    if isinstance(ckpt, dict) and "optimizer" in ckpt and optimizer is not None:
+        try:
+            optimizer.load_state_dict(ckpt["optimizer"])
+        except Exception:
+            print("  ⚠️  Optimizer state tidak bisa di-load, mulai dengan optimizer fresh.")
+
+    start_step = ckpt.get("step", 0) if isinstance(ckpt, dict) else 0
+    print(f"  Resume dari step {start_step}")
     return start_step
 
 
@@ -253,21 +298,22 @@ def main():
 
         if step % log_every == 0:
             elapsed = time.time() - t0
-            print(f"step {step:7d} | train: {accumulated_loss:.4f} | "
-                  f"lr: {lr:.2e} | {elapsed:.1f}s")
+            print(f"step {step:7d} | train: {accumulated_loss:.4f} | lr: {lr:.2e} | {elapsed:.1f}s")
+            log_loss(args.output_dir, step, accumulated_loss)
             t0 = time.time()
 
         if step % eval_every == 0 and step > 0:
             val_loss = evaluate(model, get_batch, val_files, train_dtype, args.device)
             print(f"  eval @ step {step}: val_loss={val_loss:.4f}")
+            log_loss(args.output_dir, step, accumulated_loss, val_loss)
 
         if step % save_every == 0 and step > 0:
             val_loss = evaluate(model, get_batch, val_files, train_dtype, args.device)
-            save_checkpoint(model, optimizer, step, model_cfg, args.output_dir, step, val_loss)
+            save_checkpoint(model, optimizer, model_cfg, args.output_dir, step, val_loss)
 
     # Final checkpoint
     final_val = evaluate(model, get_batch, val_files, train_dtype, args.device)
-    save_checkpoint(model, optimizer, max_steps, model_cfg, args.output_dir, max_steps, final_val)
+    save_checkpoint(model, optimizer, model_cfg, args.output_dir, max_steps, final_val)
     print("Training selesai.")
 
 
