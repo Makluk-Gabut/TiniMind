@@ -185,6 +185,7 @@ def load_checkpoint_for_resume(path, model, optimizer, device):
     # - state_dict langsung (semua value adalah Tensor)        ← format paling lama
     if isinstance(ckpt, dict):
         state_dict = (ckpt.get("model")
+                      or ckpt.get("model_state")
                       or ckpt.get("state_dict")
                       or ckpt.get("model_state_dict"))
         if state_dict is None:
@@ -201,11 +202,13 @@ def load_checkpoint_for_resume(path, model, optimizer, device):
 
     model.load_state_dict(state_dict, strict=False)
 
-    if isinstance(ckpt, dict) and "optimizer" in ckpt and optimizer is not None:
-        try:
-            optimizer.load_state_dict(ckpt["optimizer"])
-        except Exception:
-            print("  ⚠️  Optimizer state tidak bisa di-load, mulai dengan optimizer fresh.")
+    if isinstance(ckpt, dict) and optimizer is not None:
+        opt_state = ckpt.get("optimizer") or ckpt.get("optimizer_state")
+        if opt_state:
+            try:
+                optimizer.load_state_dict(opt_state)
+            except Exception:
+                print("  ⚠️  Optimizer state tidak bisa di-load, mulai dengan optimizer fresh.")
 
     start_step = ckpt.get("step", 0) if isinstance(ckpt, dict) else 0
     print(f"  Resume dari step {start_step}")
