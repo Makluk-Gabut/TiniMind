@@ -90,16 +90,24 @@ def load_chunks(data_dir: str, val_chunks: int):
     return train_files, val_files
 
 
-def make_get_batch(seq_len: int, batch_size: int, device: str):
-    """Closure get_batch dengan auto-retry kalau file korup/kosong.
+def _remount_drive():
+    """Remount Google Drive — hanya berjalan di Colab, no-op di tempat lain."""
+    try:
+        import subprocess
+        subprocess.run(["fusermount", "-uz", "/content/drive"], capture_output=True)
+        from google.colab import drive
+        drive.mount("/content/drive", force_remount=True)
+        time.sleep(3)   # tunggu filesystem siap
+        print("Drive remounted!")
+        return True
+    except Exception as e:
+        print(f"Remount gagal: {e}")
+        return False
 
-    Catatan: di Colab versi sebelumnya ada masalah Drive disconnect
-    (OSError 107) yang butuh remount logic. Di Lambda/RunPod/server
-    biasa storage-nya lokal/persistent, jadi remount logic TIDAK
-    relevan di sini — cukup retry biasa kalau ada file korup.
-    """
+
+def make_get_batch(seq_len: int, batch_size: int, device: str):
     def get_batch(files: list[str]):
-        for _ in range(5):
+        for attempt in range(15):
             try:
                 f = random.choice(files)
                 data = np.fromfile(f, dtype=np.uint16).astype(np.int64)
@@ -109,10 +117,15 @@ def make_get_batch(seq_len: int, batch_size: int, device: str):
                 x = torch.stack([torch.from_numpy(data[i:i + seq_len]) for i in ix]).to(device)
                 y = torch.stack([torch.from_numpy(data[i + 1:i + seq_len + 1]) for i in ix]).to(device)
                 return x, y
-            except (OSError, ValueError) as e:
+            except OSError as e:
+                if e.errno == 107:
+                    print(f"Drive disconnect! Remounting... (attempt {attempt+1})")
+                    _remount_drive()
+                else:
+                    print(f"Gagal baca chunk ({e}), coba file lain...")
+            except (ValueError, Exception) as e:
                 print(f"Gagal baca chunk ({e}), coba file lain...")
-                continue
-        raise RuntimeError("Gagal load batch setelah 5x percobaan — cek integritas data.")
+        raise RuntimeError("Gagal load batch setelah 15x percobaan.")
     return get_batch
 
 
@@ -305,12 +318,16 @@ def main():
             log_loss(args.output_dir, step, accumulated_loss)
             t0 = time.time()
 
-        if step % eval_every == 0 and step > 0:
+        # skip eval & save di step pertama resume supaya tidak keganda
+        if step <= start_step:
+            continue
+
+        if step % eval_every == 0:
             val_loss = evaluate(model, get_batch, val_files, train_dtype, args.device)
             print(f"  eval @ step {step}: val_loss={val_loss:.4f}")
             log_loss(args.output_dir, step, accumulated_loss, val_loss)
 
-        if step % save_every == 0 and step > 0:
+        if step % save_every == 0:
             val_loss = evaluate(model, get_batch, val_files, train_dtype, args.device)
             save_checkpoint(model, optimizer, model_cfg, args.output_dir, step, val_loss)
 
