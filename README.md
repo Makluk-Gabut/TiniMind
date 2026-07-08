@@ -91,7 +91,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | `train_tokenizer_indo.py` | Indonesian tokenizer training script                      |
 | `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials    |
 | `requirements.txt`        | Python dependencies                                       |
-| `LICENSE`                 | AGP License                                               |
+| `LICENSE`                 | AGPL License                                              |
 
 ---
 
