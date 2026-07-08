@@ -33,6 +33,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ RMSNorm
 - ✅ Flash Attention using PyTorch `scaled_dot_product_attention`
 - ✅ SwiGLU Feed Forward Network
+- ✅ Multi-size config (~125M, ~303M, ~490M, ~1.01B).
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
 - ✅ Stable Quantization
 - ✅ Standalone Training Script
@@ -90,7 +91,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | `train_tokenizer_indo.py` | Indonesian tokenizer training script                      |
 | `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials    |
 | `requirements.txt`        | Python dependencies                                       |
-| `LICENSE`                 | MIT License                                               |
+| `LICENSE`                 | AGP License                                               |
 
 ---
 
