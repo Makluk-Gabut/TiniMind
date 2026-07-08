@@ -1,15 +1,7 @@
 """
 train.py — TiniMind Standalone Training Script
 =================================================
-Pengganti notebook untuk environment non-Colab (Lambda Cloud, RunPod,
-server lokal, dll). Format data dan checkpoint TETAP SAMA dengan
-TiniMind_Training.ipynb supaya checkpoint bisa saling dipakai.
-
-Asumsi data: chunk_*.bin di --data-dir, masing-masing array uint16
-hasil tokenisasi (sama seperti pipeline DataPreprocessor di
-nanocore/data/preprocessing.py — format: np.uint16 token ids per file).
-
-Cara pakai:
+How To Use:
     python train.py --config prod_500m --data-dir ./data/mc4_indo \\
         --output-dir ./output/checkpoints
 
