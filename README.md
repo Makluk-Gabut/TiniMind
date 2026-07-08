@@ -3,7 +3,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-AGPL-green)
 ![Status](https://img.shields.io/badge/Status-Beta-orange)
 
 > A lightweight decoder-only Transformer built from scratch in PyTorch.
