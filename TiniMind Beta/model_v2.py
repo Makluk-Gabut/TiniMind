@@ -1,22 +1,3 @@
-"""
-TiniMind Model v2 — Flash Attention + Custom Tokenizer Support
-==============================================================
-Arsitektur: RoPE + RMSNorm + GQA + SwiGLU
-
-Perubahan dari model.py v1:
-  [UPD-1] Flash Attention via F.scaled_dot_product_attention (PyTorch 2.0+)
-          -> Tidak perlu alokasi attention matrix eksplisit O(T^2)
-          -> ~2-4x lebih cepat di T4, hemat VRAM signifikan
-          -> Auto-fallback ke math attention kalau SDPA tidak tersedia
-  [UPD-2] Support custom vocab size (32000 Indo BPE atau 100352 cl100k)
-  [UPD-3] KV expansion pakai repeat_interleave (view, bukan copy) untuk GQA
-
-Interface TETAP SAMA dengan v1:
-    forward(x, targets=None, use_kv_cache=False, past_kvs=None, offset=0)
-    return (logits, loss, past_kvs)
-    model.num_params()
-"""
-
 from __future__ import annotations
 from typing import List, Optional, Tuple
 import math
