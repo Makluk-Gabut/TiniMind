@@ -1,25 +1,11 @@
 """
 quantize.py — TiniMind Post-Training Quantization
-====================================================
-Kompatibel dengan model_v2.py (TiniMind, GQA + RoPE + SwiGLU) dan
-config.py (ModelConfig). Sebelumnya quantize.py TIDAK ADA di repo
-meski direferensikan di README — file ini menggantikannya.
-
-Kenapa quantize.py lama "tidak kompatibel":
-  - File belum pernah dibuat, jadi tidak ada implementasi sama sekali.
-  - Asumsi vocab_size di beberapa tempat lain di repo (config.py default
-    = 100352 / cl100k) sudah USANG — training sekarang pakai Indo BPE
-    vocab_size=32000 (lihat TiniMind_Training.ipynb Cell 4).
-    -> quantize.py ini TIDAK hardcode vocab_size, selalu ambil dari
-       checkpoint atau argumen CLI eksplisit.
 
 Dua mode quantization:
   1. dynamic  — torch.ao.quantization.quantize_dynamic (CPU only)
-                Tidak butuh GPU, tidak butuh bitsandbytes, tidak
-                mengubah arsitektur model. Paling portable.
+                
   2. bnb8bit  — bitsandbytes Linear8bitLt (GPU only)
-                Lebih hemat VRAM untuk inference di T4, butuh
-                `pip install bitsandbytes`.
+
 
 Yang TIDAK di-quantize (sengaja):
   - nn.Embedding (embed) dan lm_head — weight-tied satu sama lain
@@ -33,7 +19,7 @@ Yang DI-quantize:
   - Semua nn.Linear di dalam GroupedQueryAttention (wq, wk, wv, wo)
     dan SwiGLUFFN (gate, up, down) — ini >90% dari total parameter.
 
-Cara pakai:
+How To Use:
     python quantize.py \\
         --checkpoint /path/to/step_0010000_loss_2.5.pt \\
         --output /path/to/tinimind_int8.pt \\
@@ -68,12 +54,7 @@ log = logging.getLogger("quantize")
 # ─── 1. Load checkpoint & infer config ─────────────────────────────────────────
 
 def load_checkpoint(checkpoint_path: str) -> dict:
-    """Load checkpoint dari training loop (lihat TiniMind_Training.ipynb).
-
-    Checkpoint training disimpan sebagai dict dengan minimal key 'model'
-    (state_dict). Beberapa checkpoint lama mungkin menyimpan state_dict
-    langsung tanpa wrapper dict — keduanya ditangani di sini.
-    """
+    
     log.info(f"Loading checkpoint: {checkpoint_path}")
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
@@ -86,18 +67,13 @@ def load_checkpoint(checkpoint_path: str) -> dict:
         state_dict = ckpt
     else:
         raise ValueError(
-            "Format checkpoint tidak dikenali. Diharapkan dict dengan key "
-            "'model', atau state_dict langsung (dict[str, Tensor])."
+            
         )
     return state_dict
 
 
 def infer_config_from_state_dict(state_dict: dict, override_vocab_size: int = None) -> ModelConfig:
-    """Rekonstruksi ModelConfig dari bentuk tensor di checkpoint.
-
-    Ini menghindari hardcode vocab_size/hidden_size yang gampang basi
-    kalau config.py di-update tapi checkpoint lama tidak cocok lagi.
-    """
+    
     embed_w = state_dict.get("embed.weight")
     if embed_w is None:
         raise ValueError("Key 'embed.weight' tidak ditemukan di checkpoint.")
