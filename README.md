@@ -53,10 +53,9 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | Configuration System     | Stable       |
 | Training Script          | Stable       |
 | Training Notebook        | Working      |
-| Documentation            | Stable       |
 | Quantization             | Stable       |
 | Evaluation Benchmark     | Planned      |
-| Pretrained Model         | Planned      |
+| Pretrained Model         | In Progress  |
 | Stable Release           | In Progress  |
 
 ---
