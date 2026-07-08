@@ -1,11 +1,6 @@
 """
 TiniMind Configuration
 ========================
-4 ukuran model tersedia:
-  tiny_130m  — 16L x 768H,  12Q/4KV  | ~125M  | T4 ✓
-  prod_300m  — 24L x 1024H, 16Q/4KV  | ~303M  | T4 ✓  ← default training saat ini
-  prod_500m  — 32L x 1152H, 18Q/6KV  | ~490M  | A100 40GB+
-  prod_1b    — 38L x 1536H, 24Q/8KV  | ~1.01B | A100 80GB+
 
 Catatan:
 - vocab_size=32000 untuk tokenizer/indo_bpe_32k.model (default semua config)
