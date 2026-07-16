@@ -210,7 +210,13 @@ See the [LICENSE](LICENSE) file for more information.
 
 # Dev's Note
 
-If you've made it this far, thank you for taking the time to explore TiniMind.
+Some comments are written in Indonesian.
+
+This notebook serves both as project documentation and my personal development notebook, so you may occasionally find mixed-language comments.
+
+The code, variable names, and APIs remain in English.
+
+And if you've made it this far, thank you for taking the time to explore TiniMind.
 
 This project has been my personal playground for learning and experimenting with modern Transformer architectures over the past eight months.
 
@@ -219,8 +225,6 @@ I'm building this project entirely on my own while still attending school. Most 
 There were countless bugs, failed experiments, broken training runs, and moments where I seriously questioned whether things would ever work. Looking back, every mistake ended up teaching me something valuable.
 
 Over time, TiniMind has evolved from an experimental notebook into a standalone training pipeline capable of running on local machines and cloud environments while keeping the codebase educational and easy to understand.
-
-Fun fact: I accidentally burned my finger on my PC fan while writing this README. Somehow documenting the project turned out to be harder than building the model itself. 😭
 
 TiniMind is still in its Beta phase, so expect rough edges, unfinished features, and things that will continue to evolve over time.
 
