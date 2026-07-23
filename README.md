@@ -35,7 +35,6 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - ✅ SwiGLU Feed Forward Network
 - ✅ Multi-size config (~125M, ~303M, ~490M, ~1.01B).
 - ✅ Custom Indonesian SentencePiece Tokenizer (32k Vocabulary)
-- ✅ Stable Quantization
 - ✅ Standalone Training Script
 - ✅ Resume Training from Checkpoints
 - ✅ Mixed Precision Training (BF16 / FP16 / FP32)
@@ -53,7 +52,6 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | Configuration System     | Stable       |
 | Training Script          | Stable       |
 | Training Notebook        | Working      |
-| Quantization             | Stable       |
 | Evaluation Benchmark     | Planned      |
 | Pretrained Model         | In Progress  |
 | Stable Release           | In Progress  |
@@ -67,7 +65,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [x] Flash Attention
 - [x] Grouped Query Attention
 - [x] RMSNorm
-- [x] Stable Quantization
+- [ ] Quantization
 - [x] Complete Training Pipeline
 - [x] Standalone Training Script
 - [x] Resume Training
@@ -86,7 +84,6 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 | `model_v2.py`             | Main Transformer architecture implementation              |
 | `config.py`               | Model configuration and hyperparameters                   |
 | `train.py`                | Standalone training script with checkpoint resume support |
-| `quantize.py`             | Quantization utilities                                    |
 | `train_tokenizer_indo.py` | Indonesian tokenizer training script                      |
 | `TiniMind_Training.ipynb` | Interactive notebook for experimentation and tutorials    |
 | `requirements.txt`        | Python dependencies                                       |
