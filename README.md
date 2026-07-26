@@ -1,4 +1,7 @@
 # Why i made this
 
-- i want to experiment with stuf
-- i lost the quantize while doing shit in my main branch
+- I want to experiment with different things
+- I lost the quantize file while working on something in my main branch
+- As a safety net in case the project gets deleted
+
+[+]
