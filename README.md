@@ -73,7 +73,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [ ] Hugging Face Integration
 - [ ] Pretrained Model Release
 - [ ] GGUF Export
-- [ ] LoRA Support
+- [x] LoRA Support (experimental)
 
 ---
 
