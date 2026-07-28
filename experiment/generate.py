@@ -1,31 +1,4 @@
 """
-generate.py — TiniMind Inference with Unicode/Byte-Fallback Fix
-======================================================================
-PROBLEM: The output of generate() produces repeating U+FFFD () characters,
-especially on immature models (where val loss is still high).
-
-ROOT CAUSE: The indo_bpe_32k tokenizer was trained with byte_fallback=True
-(256 tokens <0x00> through <0xFF>). This is an INTENDED feature — allowing
-the tokenizer to represent any character (including those missing from the
-training data) via a sequence of individual bytes, preventing information-losing
-<unk> tokens.
-
-However, the consequence is that multi-byte UTF-8 characters (accented letters,
-symbols, non-ASCII characters) are represented as SEVERAL consecutive byte tokens
-that must all be complete before they can be decoded into a single valid character.
-An immature model frequently generates individual byte tokens WITHOUT their complete
-pairs — resulting in U+FFFD during decoding.
-
-This is NOT a bug in the tokenizer or training process — it is a natural consequence
-of a model that isn't mature enough yet. A val loss of 3.3+ is still far too high for
-clean generation. LONG-TERM SOLUTION: Continue pretraining until the val loss is lower
-(ideally below 2.5) before relying on generate() outputs for anything practical.
-
-SHORT-TERM SOLUTION (fixed in this file): Detect and strip incomplete byte-fallback
-tokens BEFORE decoding. This keeps the output clean and free of U+FFFD characters —
-even though the tradeoff is that some information/characters might be missing from the
-output (missing is better than rendering as corrupt characters).
-
 Usage (CLI):
     python generate.py --checkpoint /path/to/step_0010000_loss_3.3357.pt \
         --tokenizer /path/to/indo_bpe_32k.model \
