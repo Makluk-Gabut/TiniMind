@@ -1,0 +1,6 @@
+torch>=2.0.0
+numpy>=1.23
+sentencepiece>=0.1.97
+datasets>=2.13
+bitsandbytes>=0.39.0
+tiktoken>=0.4.0
