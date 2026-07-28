@@ -1,4 +1,4 @@
-
+  
 # TiniMind
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
@@ -171,6 +171,21 @@ For interactive experimentation and development, you can still use:
 
 ```
 TiniMind_Training.ipynb
+```
+
+### 4. Quantize
+
+```bash
+    python quantize.py \
+        --checkpoint /path/to/step_0010000_loss_2.5.pt \
+        --output /path/to/tinimind_int8.pt \
+        --mode dynamic
+
+    python quantize.py \
+        --checkpoint /path/to/step_0010000_loss_2.5.pt \
+        --output /path/to/tinimind_int8.pt \
+        --mode bnb8bit \
+        --device cuda
 ```
 
 ---
