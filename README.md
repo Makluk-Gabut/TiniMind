@@ -65,7 +65,7 @@ A custom Indonesian BPE tokenizer is included to improve tokenization efficiency
 - [x] Flash Attention
 - [x] Grouped Query Attention
 - [x] RMSNorm
-- [ ] Quantization
+- [x] Quantization
 - [x] Complete Training Pipeline
 - [x] Standalone Training Script
 - [x] Resume Training
