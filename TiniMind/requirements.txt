@@ -1,6 +1,10 @@
-torch>=2.0.0
+# Core libraries
 numpy>=1.23
 sentencepiece>=0.1.97
 datasets>=2.13
+
+# For quantization/low-VRAM inference (optional, GPU + CUDA required)
 bitsandbytes>=0.39.0
-tiktoken>=0.4.0
+
+# Optional / helpful
+tiktoken>=0.4.0  # optional tokenizer helper
