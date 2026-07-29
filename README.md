@@ -173,7 +173,19 @@ For interactive experimentation and development, you can still use:
 TiniMind_Training.ipynb
 ```
 
-### 4. Quantize
+### 4. Generate Script Usage (CLI)
+``` bash
+    python generate.py --checkpoint /path/to/step_0010000_loss_3.3357.pt \
+        --tokenizer /path/to/indo_bpe_32k.model \
+        --prompt "Apa itu kecerdasan buatan?"
+
+Usage (from notebook / direct import):
+    from generate import load_model_and_tokenizer, generate
+    model, sp, device = load_model_and_tokenizer(ckpt_path, tok_path)
+    text = generate(model, sp, "<penggunna>...</penggunna><asisten>", device)
+```
+
+### 5. Quantize
 
 ```bash
     python quantize.py \
