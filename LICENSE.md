@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) [Tahun] [Nama Pemilik Hak Cipta]
+Copyright (c) 2026 Makluk-Gabut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
