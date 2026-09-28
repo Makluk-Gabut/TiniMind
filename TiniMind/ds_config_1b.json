@@ -1,0 +1,40 @@
+{
+  "train_micro_batch_size_per_gpu": 1,
+  "gradient_accumulation_steps": 8,
+  "gradient_clipping": 1.0,
+
+  "optimizer": {
+    "type": "AdamW",
+    "params": {
+      "lr": 3e-4,
+      "betas": [0.9, 0.95],
+      "weight_decay": 0.1
+    }
+  },
+
+  "fp16": {
+    "enabled": true,
+    "loss_scale": 0,
+    "initial_scale_power": 16,
+    "loss_scale_window": 1000,
+    "hysteresis": 2,
+    "min_loss_scale": 1
+  },
+
+  "zero_optimization": {
+    "stage": 2,
+    "allgather_partitions": true,
+    "allgather_bucket_size": 5e8,
+    "overlap_comm": true,
+    "reduce_scatter": true,
+    "reduce_bucket_size": 5e8,
+    "contiguous_gradients": true
+  },
+
+  "_comment_kenapa_stage_2_bukan_3": "ZeRO-3 (shard weight juga, bukan cuma optimizer state) lebih hemat memory lagi tapi jauh lebih lambat & lebih rawan bug untuk arsitektur custom kayak TiniMind. Stage 2 (shard optimizer state + gradient, weight tetap full di tiap GPU) itu titik tengah yang lebih realistis buat dicoba pertama kali: ~8GB optimizer state jadi ~4GB per GPU (2 GPU), weight+gradient tetap ~4GB per GPU. Total per GPU: ~8GB + activation, harusnya muat di T4 16GB.",
+
+  "_comment_kenapa_pakai_optimizer_bawaan_deepspeed_bukan_torch_AdamW": "DeepSpeed dengan zero_optimization butuh optimizer yang dia manage sendiri (bukan torch.optim.AdamW biasa dari luar) supaya sharding-nya bisa jalan. Ini beda dari train_fsdp.py yang masih pakai torch.optim.AdamW biasa.",
+
+  "steps_per_print": 50,
+  "wall_clock_breakdown": false
+}

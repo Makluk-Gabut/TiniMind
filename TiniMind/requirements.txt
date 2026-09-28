@@ -1,0 +1,24 @@
+# Core libraries
+numpy>=1.23
+sentencepiece>=0.1.97
+datasets>=2.13
+torch>=2.1
+
+# HuggingFace Hub login (dibutuhkan untuk dataset gated: CulturaX, starcoderdata, dll)
+huggingface_hub>=0.20
+
+# Multi-GPU training (train_deepspeed.py, prod_1b di dual T4 Kaggle)
+# Catatan: di Kaggle, install dengan DS_BUILD_OPS=0 DS_BUILD_FUSED_ADAM=0
+# di depan pip install, supaya skip compile custom CUDA ops (sering
+# gagal/lambat di environment Kaggle):
+#   DS_BUILD_OPS=0 DS_BUILD_FUSED_ADAM=0 pip install deepspeed
+deepspeed>=0.14
+
+# Filter data pretraining (filter.py, build_pretraining_data.py)
+langdetect>=1.0.9
+
+# For quantization/low-VRAM inference (optional, GPU + CUDA required)
+bitsandbytes>=0.39.0
+
+# Optional / helpful
+tiktoken>=0.4.0  # optional tokenizer helper
